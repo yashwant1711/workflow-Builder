@@ -22,7 +22,7 @@ const initalNode = [
   {
     id: "1",
     position: { x: 100, y: 100 },
-    data: { },
+    data: {},
     type: "inputtype",
   },
   {
@@ -38,7 +38,7 @@ const initalNode = [
     type: "sorttype",
   }
 ];
-const initaledges = [{ id: "", source: "", target: "", animated: true }];
+const initaledges = [{ id: "1-2", source: "2", target: "1S", animated: true }];
 function Flow() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initalNode);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initaledges);
