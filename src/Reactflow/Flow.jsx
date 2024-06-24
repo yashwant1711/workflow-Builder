@@ -6,6 +6,7 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   addEdge,
+  Panel,
 } from "reactflow";
 import "reactflow/dist/style.css";
 import Inputcsv from "./Customnodes/Inputcsv";
@@ -13,9 +14,9 @@ import Filtercsv from "./Customnodes/Filtercsv";
 import Sortcsv from "./Customnodes/Sortcsv";
 
 const nodeTypes = {
-  "inputtype": Inputcsv,
-  "filtertype": Filtercsv,
-  "sorttype": Sortcsv,
+  inputtype: Inputcsv,
+  filtertype: Filtercsv,
+  sorttype: Sortcsv,
 };
 
 const initalNode = [
@@ -36,17 +37,17 @@ const initalNode = [
     position: { x: 600, y: 100 },
     data: {},
     type: "sorttype",
-  }
+  },
 ];
-const initaledges = [{ id: "1-2", source: "2", target: "1S", animated: true }];
+const initaledges = [];
 function Flow() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initalNode);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initaledges);
 
-  const onConnect = useCallback((connection) => {
-    const edge = { ...connection, animated: true, id: `${edges.length + 1}` };
-    setEdges((prevEdge) => addEdge(edge, prevEdge));
-  }, []);
+  const onConnect = useCallback((params) => {
+    const edges = { ...params, animated: true, };
+    setEdges((preveds) => addEdge(edges, preveds))
+    , [setEdges]});
   return (
     <div className="h-[65vh]">
       <ReactFlow
@@ -65,6 +66,7 @@ function Flow() {
           style={{ backgroundColor: "#070F2B" }}
           borderColor="#070F2B"
         />
+        
       </ReactFlow>
     </div>
   );
