@@ -21,7 +21,7 @@ function useCsvData() {
         header: true,
         dynamicTyping: true,
         complete: (results) => {
-            console.log(results.data);
+          // console.log(results.data);
           setCsvData(results.data);
           setMessage(true);
           setUploded(true);
@@ -40,7 +40,7 @@ function useCsvData() {
       setError("Please upload a valid CSV file.");
     }
   };
-  console.log(csvData);
+  // console.log(csvData);
   return {
     error,
     message,

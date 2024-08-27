@@ -1,55 +1,57 @@
-import React from "react";
-import { Handle, useReactFlow, Position } from "reactflow";
+import React, { useState } from "react";
+import { Handle, Position, useReactFlow } from "reactflow";
 
-function Filtercsv({ id }) {
+function Filtercsv({ id, data }) {
   const { setNodes } = useReactFlow();
+  const [selectedColumn, setSelectedColumn] = useState("");
+
+  const handleColumnClick = (columnName) => {
+    setSelectedColumn(columnName);
+
+    const selectedColumnData = data.csvData.map((row) => ({
+      [columnName]: row[columnName],
+    }));
+    console.log(selectedColumnData);
+
+    setNodes((nodes) =>
+      nodes.map((node) =>
+        node.id === id
+          ? { ...node, data: { ...node.data, selectedColumn, selectedColumnData } }
+          : node
+      )
+    );
+  };
+
   return (
-    <div className="border-2 border-purple-900 text-white w-[150px] bg-[#070F2B]" >
-      <div className="flex justify-between items-center p-1 text-[10px] border-b-2 border-gray-500">
+    <div className="border-2 border-blue-600 text-white w-[200px] bg-[#1B1F3B] rounded-md shadow-lg">
+      <div className="flex justify-between items-center p-2 text-sm border-b-2 border-gray-700">
         <p>Filter</p>
         <button
-          className="text-gray-700  hover:text-white"
-          onClick={() =>
-            setNodes((node) => node.filter((node) => node.id !== id))
-          }
+          className="text-red-400 hover:text-white"
+          onClick={() => setNodes((nodes) => nodes.filter((node) => node.id !== id))}
         >
           X
         </button>
       </div>
-      <div className="flex flex-col p-2">
-        <p className="text-[8px] flex">Column Name :</p>
+      <div className="flex flex-col p-3">
+        <p className="text-xs">Column Name:</p>
         <select
-          id="countries"
-          className="bg-gray-500 border border-gray-300 text-gray-900 text-[12px]"
-          defaultValue={'DEFAULT'}
+          className="bg-gray-600 border border-gray-500 text-white text-xs mt-1 rounded-md p-1"
+          defaultValue="DEFAULT"
+          onChange={(e) => handleColumnClick(e.target.value)}
         >
-          <option value="DEFAULT" disabled>Connect to CSV</option>
-          <option value="US">United States</option>
-          <option value="CA">Canada</option>
-          <option value="FR">France</option>
-          <option value="DE">Germany</option>
+          <option value="DEFAULT" disabled>
+            Select a column
+          </option>
+          {data.columnNames?.map((col) => (
+            <option key={col} value={col}>
+              {col}
+            </option>
+          ))}
         </select>
       </div>
-      <div className="flex flex-col p-2 text-[14px]">
-        <p className="text-[8px] flex">Condition :</p>
-        <select
-          id="countries"
-          className="bg-gray-500 border border-gray-300 text-gray-900 text-[13px]"
-          defaultValue={'DEFAULT'}
-        >
-          <option value="DEFAULT" disabled>Connect to CSV</option>
-          <option value="US">Number equals</option>
-          <option value="CA">Number is Greater than</option>
-          <option value="FR">Number is Grater than or equal</option>
-          <option value="DE">Number is Less than</option>
-          <option value="DE">Number is Less than or equals</option>
-        </select>
-        <input type="text" className="bg-gray-500 border border-gray-300 text-gray-900 text-[13px] my-1" />
-        <button className="text-gray-400  hover:text-white">Run</button>
-      </div>
-      <Handle type="target" position={Position.Left}  />
-      <Handle type="source" position={Position.Right} />
-
+      <Handle type="target" position={Position.Left} style={{ background: "#6E85B7" }} />
+      <Handle type="source" position={Position.Right} style={{ background: "#6E85B7" }} />
     </div>
   );
 }
