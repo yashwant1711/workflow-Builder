@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Handle, Position, useReactFlow } from "reactflow";
+import { CsvDataContext }  from "../../Context/CsvDataContext";
 
 function Filtercsv({ id, data }) {
   const { setNodes } = useReactFlow();
   const [selectedColumn, setSelectedColumn] = useState("");
+  const {updateSelectedColumnData} = useContext(CsvDataContext);
 
   const handleColumnClick = (columnName) => {
     setSelectedColumn(columnName);
@@ -11,7 +13,9 @@ function Filtercsv({ id, data }) {
     const selectedColumnData = data.csvData.map((row) => ({
       [columnName]: row[columnName],
     }));
-    console.log(selectedColumnData);
+
+    updateSelectedColumnData(selectedColumnData);
+    // console.log(selectedColumnData);
 
     setNodes((nodes) =>
       nodes.map((node) =>

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Handle, Position, useReactFlow } from "reactflow";
+import { CsvDataContext } from "../../Context/CsvDataContext";
 
 function Sortcsv({ id, data }) {
   const { setNodes } = useReactFlow();
   const [selectedColumn, setSelectedColumn] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
+  const { updateAllSortedData } = useContext(CsvDataContext);
 
   useEffect(() => {
     if (selectedColumn) {
@@ -33,6 +35,7 @@ function Sortcsv({ id, data }) {
       return 0;
     });
 
+    // updateAllSortedData(allData);
     console.log(allData);
 
     setNodes((nodes) =>

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState, useContext }  from "react";
 import Papa from "papaparse";
+import { CsvDataContext } from "../Context/CsvDataContext";
+
 
 function useCsvData() {
-  const [error, setError] = React.useState("");
-  const [message, setMessage] = React.useState(false);
-  const [uploded, setUploded] = React.useState(false);
-  const [csvData, setCsvData] = React.useState([]);
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState(false);
+  const [uploded, setUploded] = useState(false);
+  const [csvDatain, setCsvDatain] =useState([]);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -14,7 +16,7 @@ function useCsvData() {
     setError("");
     setMessage(false);
     setUploded(false);
-    setCsvData([]);
+    setCsvDatain([]);
     // Check if the file is a CSV
     if (file && (file.type === "text/csv" || file.name.endsWith(".csv"))) {
       Papa.parse(file, {
@@ -22,7 +24,7 @@ function useCsvData() {
         dynamicTyping: true,
         complete: (results) => {
           // console.log(results.data);
-          setCsvData(results.data);
+          setCsvDatain(results.data);
           setMessage(true);
           setUploded(true);
           return {
@@ -40,13 +42,23 @@ function useCsvData() {
       setError("Please upload a valid CSV file.");
     }
   };
-  // console.log(csvData);
+
+  // console.log(csvDatain);
+  // sending data to context
+  
+  // const { updateCsvData } = useContext(CsvDataContext);
+  // useEffect(() => {
+  //   if (csvDatain.length > 0) {
+  //     updateCsvData(csvDatain);
+  //   }
+  // }, [csvDatain]);
+
   return {
     error,
     message,
     uploded,
     handleFileChange,
-    csvData,
+    csvDatain,
   };
 }
 

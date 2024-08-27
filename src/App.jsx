@@ -4,19 +4,19 @@ import Table from './Components/Layout/Table/Table'
 import Blockbutton from './Components/Layout/Block/Blockbutton'
 import Flow from './Reactflow/Flow'
 import useCsvData from "./Customhooks/UseCsvData"
-// import { CsvDataProvider } from './Context/CsvDataContext'
+import { CsvDataProvider } from './Context/CsvDataContext'
 
 function App() {
- const {csvData, uploded, handleFileChange, message, error} = useCsvData();
+ const {csvDatain, uploded, handleFileChange, message, error} = useCsvData();
 //  console.log(csvData)
   return (
     <div >
-      {/* <CsvDataProvider> */}
+      <CsvDataProvider>
       <Navbar/>
       <Blockbutton/>
-      <Flow data={csvData} uploded={uploded} handleFileChange={handleFileChange} message={message} error={error}/>
+      <Flow data={csvDatain} uploded={uploded} handleFileChange={handleFileChange} message={message} error={error}/>
       <Table/>
-      {/* </CsvDataProvider> */}
+      </CsvDataProvider>
     </div>
   )
 }

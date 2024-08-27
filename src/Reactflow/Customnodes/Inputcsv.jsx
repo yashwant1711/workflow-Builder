@@ -3,7 +3,9 @@ import { Handle, Position, useReactFlow } from "reactflow";
 
 function Inputcsv({ id, data }) {
   const { setNodes } = useReactFlow();
-  const { csvData, error, message, uploaded, handleFileChange } = data;
+  const { csvDatain, error, message, uploaded, handleFileChange } = data;
+
+  // console.log(csvDatain);
 
   return (
     <div className="border-2 border-blue-600 text-white w-[200px] bg-[#1B1F3B] rounded-md shadow-lg">
@@ -37,7 +39,7 @@ function Inputcsv({ id, data }) {
         <p className="p-2 text-xs text-red-600 text-center font-bold">{error}</p>
       )}
       {message && (
-        <p className="p-2 text-xs text-blue-600 text-center font-bold">{message}</p>
+        <p className="p-2 text-xs text-blue-600 text-center font-bold">File uploaded</p>
       )}
       <Handle type="source" position={Position.Right} style={{ background: "#6E85B7" }} />
     </div>
