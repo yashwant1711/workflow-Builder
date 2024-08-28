@@ -23,14 +23,14 @@ export const CsvDataContext = createContext();
 
   return (
     <CsvDataContext.Provider 
-      value={{ 
-        csvData, 
-        columnNames, 
-        selectedColumnData, 
-        allSortedData, 
+      value={{  
         updateCsvData, 
         updateSelectedColumnData, 
-        updateAllSortedData 
+        updateAllSortedData,
+        csvData,
+        columnNames,
+        selectedColumnData,
+        allSortedData 
       }}
     >
       {children}

@@ -12,11 +12,13 @@ import Inputcsv from "./Customnodes/Inputcsv";
 import Filtercsv from "./Customnodes/Filtercsv";
 import Sortcsv from "./Customnodes/Sortcsv";
 import { CsvDataContext } from "../Context/CsvDataContext";
+import Serach from "./Customnodes/Serach";
 
 const nodeTypes = {
   inputtype: Inputcsv,
   filtertype: Filtercsv,
   sorttype: Sortcsv,
+  Serach: Serach,
 };
 
 function Flow({ data, uploaded, handleFileChange, message, error }) {
@@ -53,6 +55,12 @@ function Flow({ data, uploaded, handleFileChange, message, error }) {
       data: { label: "Sort", csvData: [], columnNames: [] },
       type: "sorttype",
     },
+    {
+      id: "4",
+      position: { x: 800, y: 100 },
+      data: { label: "Search", csvData: [], columnNames: [] },
+      type: "Serach",
+    }
   ];
 
   const initialEdges = [];

@@ -9,6 +9,7 @@ function Sortcsv({ id, data }) {
   const { updateAllSortedData } = useContext(CsvDataContext);
 
   useEffect(() => {
+    // Trigger sorting whenever the selected column or sort order changes
     if (selectedColumn) {
       sortData(selectedColumn, sortOrder);
     }
@@ -23,28 +24,42 @@ function Sortcsv({ id, data }) {
   };
 
   const sortData = (columnName, order) => {
-    let allData = data.csvData.flatMap((chunk) => chunk);
+    try {
+      // Flatten the CSV data into a single array
+      let allData = data.csvData.flatMap((chunk) => chunk);
 
-    allData.sort((a, b) => {
-      if (a[columnName] < b[columnName]) {
-        return order === "asc" ? -1 : 1;
-      }
-      if (a[columnName] > b[columnName]) {
-        return order === "asc" ? 1 : -1;
-      }
-      return 0;
-    });
+      // Sort the data based on the selected column and order
+      allData.sort((a, b) => {
+        // Handle undefined, null, or missing values
+        const aValue = a[columnName] !== undefined && a[columnName] !== null ? a[columnName] : "";
+        const bValue = b[columnName] !== undefined && b[columnName] !== null ? b[columnName] : "";
 
-    // updateAllSortedData(allData);
-    console.log(allData);
+        // Compare values based on their type (number or string)
+        if (typeof aValue === "number" && typeof bValue === "number") {
+          return order === "asc" ? aValue - bValue : bValue - aValue;
+        } else {
+          // Default to string comparison using localeCompare with safety checks
+          return order === "asc"
+            ? String(aValue).localeCompare(String(bValue))
+            : String(bValue).localeCompare(String(aValue));
+        }
+      });
 
-    setNodes((nodes) =>
-      nodes.map((node) =>
-        node.id === id
-          ? { ...node, data: { ...node.data, selectedColumn, sortedData: allData } }
-          : node
-      )
-    );
+      // Update the sorted data globally if needed
+      updateAllSortedData(allData); // Uncomment if global update is required
+      // console.log(allData)
+
+      // Update the node data with the sorted results
+      setNodes((nodes) =>
+        nodes.map((node) =>
+          node.id === id
+            ? { ...node, data: { ...node.data, selectedColumn, sortedData: allData } }
+            : node
+        )
+      );
+    } catch (error) {
+      console.error("Error sorting data:", error);
+    }
   };
 
   return (
@@ -77,6 +92,7 @@ function Sortcsv({ id, data }) {
         <p className="text-xs mt-2">Order:</p>
         <select
           className="bg-gray-600 border border-gray-500 text-white text-xs mt-1 rounded-md p-1"
+          value={sortOrder}
           onChange={(e) => handleOrderChange(e.target.value)}
         >
           <option value="asc">Ascending</option>
@@ -84,9 +100,9 @@ function Sortcsv({ id, data }) {
         </select>
       </div>
       <Handle type="target" position={Position.Left} style={{ background: "#6E85B7" }} />
-      <Handle type="source" position={Position.Right} style={{ background: "#6E85B7" }} />
     </div>
   );
 }
 
 export default Sortcsv;
+
