@@ -99,7 +99,9 @@ function Sortcsv({ id, data }) {
           <option value="desc">Descending</option>
         </select>
       </div>
-      <Handle type="target" position={Position.Left} style={{ background: "#6E85B7" }} />
+      <Handle type="target" position={Position.Left} style={{ background: "#6E85B7" }} id="a"/>
+      {/* <Handle type="source" position={Position.Right} style={{ background: "#6E85B7" }} id="b" /> */}
+
     </div>
   );
 }

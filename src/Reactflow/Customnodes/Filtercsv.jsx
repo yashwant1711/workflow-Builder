@@ -55,6 +55,7 @@ function Filtercsv({ id, data }) {
         </select>
       </div>
       <Handle type="target" position={Position.Left} style={{ background: "#6E85B7" }} />
+      {/* <Handle type="source" position={Position.Right} style={{ background: "#6E85B7" }} /> */}
     </div>
   );
 }
