@@ -25,6 +25,10 @@ export const CsvDataContext = createContext();
     setAllSortedData(data);
   };
 
+  const updateContextshow = (data) => {
+    setContextshow(data);
+  };
+
   return (
     <CsvDataContext.Provider 
       value={{  
@@ -36,8 +40,7 @@ export const CsvDataContext = createContext();
         selectedColumnData,
         allSortedData,
         contextshow,
-        setContextshow,
-        
+        updateContextshow
       }}
     >
       {children}

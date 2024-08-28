@@ -7,8 +7,9 @@ function Inputcsv({ id, data }) {
   const { csvDatain, error, message, uploaded, handleFileChange } = data;
   // const [show , setShow] = useState(false)
   // console.log(csvDatain);
-  const {contextshow} = useContext(CsvDataContext)
+  const {contextshow, updateContextshow} = useContext(CsvDataContext)
   const handelCancel = () => {
+   updateContextshow(false)
     return  setNodes((nodes) => nodes.filter((node) => node.id !== id))
   }
 

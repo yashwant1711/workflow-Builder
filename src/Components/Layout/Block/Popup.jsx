@@ -2,11 +2,11 @@ import React, {useContext} from 'react';
 import { CsvDataContext } from '../../../Context/CsvDataContext';
 
 function Popup({ onClose }) {
-    const {setContextshow } = useContext(CsvDataContext)
+    const {updateContextshow } = useContext(CsvDataContext)
     const handelShow = (id) => {
      return () => {
          if(id === 'input'){
-            setContextshow(true)
+            updateContextshow(true)
          }
      }
     }
