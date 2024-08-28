@@ -7,6 +7,7 @@ function Sortcsv({ id, data }) {
   const [selectedColumn, setSelectedColumn] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const { updateAllSortedData } = useContext(CsvDataContext);
+  const [showsort, setshowsort] = useState(false)
 
   useEffect(() => {
     // Trigger sorting whenever the selected column or sort order changes
@@ -62,7 +63,9 @@ function Sortcsv({ id, data }) {
     }
   };
 
+
   return (
+    (showsort &&
     <div className="border-2 border-blue-600 text-white w-[200px] bg-[#1B1F3B] rounded-md shadow-lg">
       <div className="flex justify-between items-center p-2 text-sm border-b-2 border-gray-700">
         <p>Sort</p>
@@ -103,7 +106,7 @@ function Sortcsv({ id, data }) {
       {/* <Handle type="source" position={Position.Right} style={{ background: "#6E85B7" }} id="b" /> */}
 
     </div>
-  );
+  ));
 }
 
 export default Sortcsv;

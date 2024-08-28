@@ -6,6 +6,7 @@ function Filtercsv({ id, data }) {
   const { setNodes } = useReactFlow();
   const [selectedColumn, setSelectedColumn] = useState("");
   const {updateSelectedColumnData} = useContext(CsvDataContext);
+  const [showfilter, setShowFilter] = useState(false);
 
   const handleColumnClick = (columnName) => {
     setSelectedColumn(columnName);
@@ -27,6 +28,9 @@ function Filtercsv({ id, data }) {
   };
 
   return (
+    (showfilter && (
+      
+    
     <div className="border-2 border-blue-600 text-white w-[200px] bg-[#1B1F3B] rounded-md shadow-lg">
       <div className="flex justify-between items-center p-2 text-sm border-b-2 border-gray-700">
         <p>Filter</p>
@@ -57,7 +61,7 @@ function Filtercsv({ id, data }) {
       <Handle type="target" position={Position.Left} style={{ background: "#6E85B7" }} />
       {/* <Handle type="source" position={Position.Right} style={{ background: "#6E85B7" }} /> */}
     </div>
-  );
+  )))
 }
 
 export default Filtercsv;

@@ -1,7 +1,15 @@
-import React from 'react';
-import { Handle, Position } from 'reactflow';
+import React, {useContext} from 'react';
+import { CsvDataContext } from '../../../Context/CsvDataContext';
 
 function Popup({ onClose }) {
+    const {setContextshow } = useContext(CsvDataContext)
+    const handelShow = (id) => {
+     return () => {
+         if(id === 'input'){
+            setContextshow(true)
+         }
+     }
+    }
   return (
     <div
       className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20'
@@ -13,10 +21,10 @@ function Popup({ onClose }) {
       >
         <h3 className='text-lg font-bold mb-2'>Select Node Type</h3>
         <div className='flex flex-col space-y-2'>
-          <button className='bg-blue-500 hover:bg-blue-700 text-white rounded-md p-2'>Add Data Node</button>
-          <button className='bg-green-500 hover:bg-green-700 text-white rounded-md p-2'>Add Sort Node</button>
-          <button className='bg-red-500 hover:bg-red-700 text-white rounded-md p-2'>Add Filter Node</button>
-          <button className='bg-yellow-500 hover:bg-yellow-700 text-white rounded-md p-2'>Add Search Node</button>
+          <button className='bg-blue-500 hover:bg-blue-700 text-white rounded-md p-2' id='input' onClick={handelShow('input')}>Add Data Node</button>
+          <button className='bg-green-500 hover:bg-green-700 text-white rounded-md p-2' id='sort' onClick={handelShow}>Add Sort Node</button>
+          <button className='bg-red-500 hover:bg-red-700 text-white rounded-md p-2' id='filter' onClick={handelShow}>Add Filter Node</button>
+          <button className='bg-yellow-500 hover:bg-yellow-700 text-white rounded-md p-2' id='search' onClick={handelShow}>Add Search Node</button>
         </div>
         <div className='mt-4 flex justify-end'>
           <button

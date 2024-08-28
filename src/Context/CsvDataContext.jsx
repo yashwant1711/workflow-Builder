@@ -7,6 +7,10 @@ export const CsvDataContext = createContext();
   const [columnNames, setColumnNames] = useState([]);
   const [selectedColumnData, setSelectedColumnData] = useState([]);
   const [allSortedData, setAllSortedData] = useState([]);
+  const [contextshow, setContextshow] = useState(false);
+  const [contextshowfilter, setContextshowfilter] = useState(false);
+  const [contextshowsearch, setContextshowsearch] = useState(false);
+  const [contextshowsort, setContextshowsort] = useState(false);
 
   const updateCsvData = (data) => {
     setCsvData(data);
@@ -30,7 +34,10 @@ export const CsvDataContext = createContext();
         csvData,
         columnNames,
         selectedColumnData,
-        allSortedData 
+        allSortedData,
+        contextshow,
+        setContextshow,
+        
       }}
     >
       {children}
