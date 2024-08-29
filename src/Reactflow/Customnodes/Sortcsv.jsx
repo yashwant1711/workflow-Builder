@@ -6,8 +6,7 @@ function Sortcsv({ id, data }) {
   const { setNodes } = useReactFlow();
   const [selectedColumn, setSelectedColumn] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
-  const { updateAllSortedData } = useContext(CsvDataContext);
-  const [showsort, setshowsort] = useState(false)
+  const { updateAllSortedData, contextshowsort ,updateContextsort  } = useContext(CsvDataContext);
 
   useEffect(() => {
     // Trigger sorting whenever the selected column or sort order changes
@@ -63,15 +62,19 @@ function Sortcsv({ id, data }) {
     }
   };
 
+  const handelCancel = () => {
+    updateContextsort(false);
+    setNodes((nodes) => nodes.filter((node) => node.id !== id));
+  };
 
   return (
-    (showsort &&
+    (contextshowsort &&
     <div className="border-2 border-blue-600 text-white w-[200px] bg-[#1B1F3B] rounded-md shadow-lg">
       <div className="flex justify-between items-center p-2 text-sm border-b-2 border-gray-700">
         <p>Sort</p>
         <button
           className="text-red-400 hover:text-white"
-          onClick={() => setNodes((nodes) => nodes.filter((node) => node.id !== id))}
+          onClick={handelCancel}
         >
           X
         </button>

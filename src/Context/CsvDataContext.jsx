@@ -33,6 +33,13 @@ export const CsvDataContext = createContext();
     setContextshowfilter(data);
   };
 
+  const updateContextsearch = (data) => {
+    setContextshowsearch(data);
+  }
+
+  const updateContextsort = (data) => {
+    setContextshowsort(data);
+  }
   return (
     <CsvDataContext.Provider 
       value={{  
@@ -46,7 +53,11 @@ export const CsvDataContext = createContext();
         contextshow,
         updateContextshow,
         contextshowfilter,
-        updateContextfilter
+        updateContextfilter,
+        contextshowsearch,
+        updateContextsearch,
+        contextshowsort,
+        updateContextsort
       }}
     >
       {children}

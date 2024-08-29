@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Handle, Position, useReactFlow } from 'reactflow';
+import { CsvDataContext } from '../../Context/CsvDataContext';
 
 function Search({ id, data }) {
   const { setNodes } = useReactFlow();
   const [searchTerm, setSearchTerm] = useState("");
-  const [showSearch, setShowSearch] = useState(false);
+  const { contextshowsearch, updateContextsearch } = useContext(CsvDataContext);
 
   useEffect(() => {
     // Log the data structure to understand its shape
@@ -55,14 +56,19 @@ function Search({ id, data }) {
     }
   };
 
+  const handelCancel = () => {
+    setNodes(nodes => nodes.filter(node => node.id !== id));
+    updateContextsearch((prev) => !prev);
+  }
+
   return (
-    (showSearch && (        
+    (contextshowsearch && (        
     <div className="border-2 border-blue-600 text-white w-[200px] bg-[#1B1F3B] rounded-md shadow-lg">
       <div className="flex justify-between items-center p-2 text-sm border-b-2 border-gray-700">
         <p>Search</p>
         <button
           className="text-red-400 hover:text-white"
-          onClick={() => setNodes(nodes => nodes.filter(node => node.id !== id))}
+          onClick={handelCancel}
         >
           X
         </button>
