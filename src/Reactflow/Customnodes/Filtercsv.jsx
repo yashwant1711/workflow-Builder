@@ -5,8 +5,7 @@ import { CsvDataContext }  from "../../Context/CsvDataContext";
 function Filtercsv({ id, data }) {
   const { setNodes } = useReactFlow();
   const [selectedColumn, setSelectedColumn] = useState("");
-  const {updateSelectedColumnData} = useContext(CsvDataContext);
-  const [showfilter, setShowFilter] = useState(false);
+  const {updateSelectedColumnData , contextshowfilter, updateContextfilter } = useContext(CsvDataContext);
 
   const handleColumnClick = (columnName) => {
     setSelectedColumn(columnName);
@@ -27,8 +26,13 @@ function Filtercsv({ id, data }) {
     );
   };
 
+  const handelCancel = () => {
+    setNodes((nodes) => nodes.filter((node) => node.id !== id));
+
+    updateContextfilter((prev) => !prev);
+  }
   return (
-    (showfilter && (
+    (contextshowfilter && (
       
     
     <div className="border-2 border-blue-600 text-white w-[200px] bg-[#1B1F3B] rounded-md shadow-lg">
@@ -36,7 +40,7 @@ function Filtercsv({ id, data }) {
         <p>Filter</p>
         <button
           className="text-red-400 hover:text-white"
-          onClick={() => setNodes((nodes) => nodes.filter((node) => node.id !== id))}
+          onClick={handelCancel}
         >
           X
         </button>

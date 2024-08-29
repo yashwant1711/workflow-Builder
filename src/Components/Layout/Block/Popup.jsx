@@ -2,13 +2,18 @@ import React, {useContext} from 'react';
 import { CsvDataContext } from '../../../Context/CsvDataContext';
 
 function Popup({ onClose }) {
-    const {updateContextshow } = useContext(CsvDataContext)
+    const {updateContextshow, updateContextfilter } = useContext(CsvDataContext)
     const handelShow = (id) => {
      return () => {
          if(id === 'input'){
-            updateContextshow(true)
+            updateContextshow((prev) => !prev)
          }
+        //  console.log(updateContextshow(true))
+        if(id === 'filter'){
+          updateContextfilter((prev) => !prev)
+       }
      }
+     
     }
   return (
     <div
@@ -23,7 +28,7 @@ function Popup({ onClose }) {
         <div className='flex flex-col space-y-2'>
           <button className='bg-blue-500 hover:bg-blue-700 text-white rounded-md p-2' id='input' onClick={handelShow('input')}>Add Data Node</button>
           <button className='bg-green-500 hover:bg-green-700 text-white rounded-md p-2' id='sort' onClick={handelShow}>Add Sort Node</button>
-          <button className='bg-red-500 hover:bg-red-700 text-white rounded-md p-2' id='filter' onClick={handelShow}>Add Filter Node</button>
+          <button className='bg-red-500 hover:bg-red-700 text-white rounded-md p-2' id='filter' onClick={handelShow('filter')}>Add Filter Node</button>
           <button className='bg-yellow-500 hover:bg-yellow-700 text-white rounded-md p-2' id='search' onClick={handelShow}>Add Search Node</button>
         </div>
         <div className='mt-4 flex justify-end'>
@@ -40,3 +45,5 @@ function Popup({ onClose }) {
 }
 
 export default Popup;
+
+
